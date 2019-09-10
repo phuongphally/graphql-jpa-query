@@ -82,7 +82,8 @@ public class GraphQLWhereVariableBindingsTests {
 		Map<String, Object> result = executionResult.getData();
 		then(result)
 				.extracting("Books")
-				.flatExtracting("select")
+				.extracting("select")
+                .asList()
 				.hasSize(1)
 				.extracting("id", "title", "genre")
 				.containsOnly(tuple(2L, "War and Peace", NOVEL));
@@ -122,13 +123,15 @@ public class GraphQLWhereVariableBindingsTests {
 		Map<String, Object> result = executionResult.getData();
 		then(result)
 				.extracting("Books")
-				.flatExtracting("select")
+				.extracting("select")
+                .asList()
 				.hasSize(2)
 				.extracting("title")
 				.containsOnly("War and Peace", "Anna Karenina");
 		then(result)
 				.extracting("Books")
-				.flatExtracting("select")
+                .extracting("select")
+                .asList()
 				.hasSize(2)
 				.extracting("author")
 				.extracting("id", "name")
@@ -165,7 +168,8 @@ public class GraphQLWhereVariableBindingsTests {
 		Map<String, Object> result = executionResult.getData();
 		then(result)
 				.extracting("Books")
-				.flatExtracting("select")
+				.extracting("select")
+                .asList()
 				.extracting("genre")
 				.containsOnly(PLAY);
 	}
@@ -200,7 +204,8 @@ public class GraphQLWhereVariableBindingsTests {
 		Map<String, Object> result = executionResult.getData();
 		then(result)
 				.extracting("Books")
-				.flatExtracting("select")
+                .extracting("select")
+                .asList()
 				.extracting("id", "title")
 				.containsOnly(
 						tuple(5L, "The Cherry Orchard"),
@@ -240,12 +245,14 @@ public class GraphQLWhereVariableBindingsTests {
 		Map<String, Object> result = executionResult.getData();
 		then(result)
 				.extracting("Authors")
-				.flatExtracting("select")
+                .extracting("select")
+                .asList()
 				.extracting("name")
 				.containsOnly("Leo Tolstoy");
 		then(result)
 				.extracting("Authors")
-				.flatExtracting("select")
+                .extracting("select")
+                .asList()
 				.flatExtracting("books")
 				.extracting("genre")
 				.containsOnly(NOVEL);
@@ -283,7 +290,8 @@ public class GraphQLWhereVariableBindingsTests {
 		Map<String, Object> result = executionResult.getData();
 		then(result)
 				.extracting("Books")
-				.flatExtracting("select")
+                .extracting("select")
+                .asList()
 				.extracting("id", "title")
 				.containsOnly(tuple(5L, "The Cherry Orchard"));
 	}

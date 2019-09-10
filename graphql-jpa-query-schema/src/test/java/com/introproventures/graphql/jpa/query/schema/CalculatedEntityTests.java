@@ -145,7 +145,7 @@ public class CalculatedEntityTests {
                 .isPresent().get()
                 .extracting("description")
                 .isNotNull()
-                .containsExactly("getParentTransientGetter");
+                .isEqualTo("getParentTransientGetter");
     }
 
     private Optional<GraphQLFieldDefinition> getFieldForType(String fieldName,
