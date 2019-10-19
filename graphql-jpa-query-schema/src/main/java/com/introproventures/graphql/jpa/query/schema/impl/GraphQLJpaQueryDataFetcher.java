@@ -34,7 +34,6 @@ import graphql.language.Argument;
 import graphql.language.BooleanValue;
 import graphql.language.Field;
 import graphql.schema.DataFetchingEnvironment;
-import graphql.schema.DataFetchingEnvironmentImpl;
 import graphql.schema.GraphQLObjectType;
 
 /**
@@ -102,7 +101,7 @@ class GraphQLJpaQueryDataFetcher extends QraphQLJpaBaseDataFetcher {
                 Optional.of(getFieldDef(environment.getGraphQLSchema(), (GraphQLObjectType)environment.getParentType(), field))
                     .map(it -> (GraphQLObjectType) it.getType())
                     .map(it -> it.getFieldDefinition(GraphQLJpaSchemaBuilder.QUERY_SELECT_PARAM_NAME))
-                    .map(it -> DataFetchingEnvironmentImpl.newDataFetchingEnvironment(environment)
+                    .map(it -> DataFetchingEnvironmentBuilder.newDataFetchingEnvironment(environment)
                                                              .fieldType(it.getType())
                                                              .build()
                     ).orElse(environment);
@@ -175,7 +174,7 @@ class GraphQLJpaQueryDataFetcher extends QraphQLJpaBaseDataFetcher {
         CriteriaQuery<Long> query = cb.createQuery(Long.class);
         Root<?> root = query.from(entityType);
 
-        DataFetchingEnvironment queryEnvironment = DataFetchingEnvironmentImpl.newDataFetchingEnvironment(environment)
+        DataFetchingEnvironment queryEnvironment = DataFetchingEnvironmentBuilder.newDataFetchingEnvironment(environment)
                                                                                  .root(query)
                                                                                  .build();
         
