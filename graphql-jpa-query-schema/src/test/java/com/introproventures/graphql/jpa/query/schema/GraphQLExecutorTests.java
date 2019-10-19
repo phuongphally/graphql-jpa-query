@@ -1984,5 +1984,20 @@ public class GraphQLExecutorTests {
 
         //then:
         assertThat(result.toString()).isEqualTo(expected);
-    } 
+    }
+    
+    @Test
+    public void queryWithNullVarables() {
+        //given
+        String query = "{ Author(id: 1) { id name } }";
+        
+        String expected = "{Author={id=1, name=Leo Tolstoy}}";
+
+        //when
+        Object result = executor.execute(query, null).getData();
+
+        // then
+        assertThat(result.toString()).isEqualTo(expected);
+    }
+    
 }
