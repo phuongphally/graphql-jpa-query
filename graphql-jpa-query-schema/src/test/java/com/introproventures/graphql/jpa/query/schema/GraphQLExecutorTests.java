@@ -1933,7 +1933,8 @@ public class GraphQLExecutorTests {
         then(data)
                 .isNotNull().isNotEmpty()
                 .extracting("Books")
-                .flatExtracting("select")
+                .extracting("select")
+                .asList()
                 .extracting("id", "title")
                 .containsExactly(
                         tuple(7L,
